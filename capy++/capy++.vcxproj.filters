@@ -33,6 +33,15 @@
     <ClCompile Include="SyntaxParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FundamentalDataTypes\Identifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FundamentalDataTypes\Value.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FundamentalDataTypes\Variable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compiler.h">
@@ -51,6 +60,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SyntaxParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FundamentalDataTypes\Identifier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FundamentalDataTypes\Value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FundamentalDataTypes\Variable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,9 +22,9 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{d9a45b53-59b4-4f81-87b3-63636cc4b201}</ProjectGuid>
-    <RootNamespace>capyREAL</RootNamespace>
+    <RootNamespace>capy</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>capy++REAL</ProjectName>
+    <ProjectName>capy++</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -133,6 +133,9 @@
     <ClCompile Include="Compiler.cpp" />
     <ClCompile Include="DataTypeFinder.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="FundamentalDataTypes\Identifier.cpp" />
+    <ClCompile Include="FundamentalDataTypes\Value.cpp" />
+    <ClCompile Include="FundamentalDataTypes\Variable.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SyntaxParser.cpp" />
@@ -141,6 +144,9 @@
     <ClInclude Include="Compiler.h" />
     <ClInclude Include="DataTypeFinder.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="FundamentalDataTypes\Identifier.h" />
+    <ClInclude Include="FundamentalDataTypes\Value.h" />
+    <ClInclude Include="FundamentalDataTypes\Variable.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="SyntaxParser.h" />

@@ -1,12 +1,15 @@
 #include "SyntaxParser.h"
 
-void SyntaxParser::ParseAllIdentifiers(vector<vector<string>>& linesInFile) {
+void SyntaxParser::ParseAllIdentifiers(const vector<vector<string>>& linesInFile) {
+	vector<Identifier> identifiersLineSorted{};
 	for (size_t lineIndex = 0; lineIndex < linesInFile.size(); lineIndex++) {
+		Identifier currentIdentifier{};
 		vector<string> line = linesInFile.at(lineIndex);
 		int size = line.size();
 		if (size > 2) {
 			for (int tokenIterator = size - 1; tokenIterator >= 0; tokenIterator--) {
 				char firstChar = line.at(tokenIterator).at(0);
+				AllDataTypes dataType{};
 				string token = line.at(tokenIterator);
 				if (std::isdigit(firstChar)) {
 					int dots = std::count(token.begin(), token.end(), '.');
@@ -22,26 +25,33 @@ void SyntaxParser::ParseAllIdentifiers(vector<vector<string>>& linesInFile) {
 				}
 				// else if string or char
 				else if (firstChar == '\'') {
-					CharSyntaxChecker(token, lineIndex);
+					dataType = CharSyntaxChecker(token, lineIndex);
+					if (dataType != ERROR_TYPE) {
+						currentIdentifier.AddExpressionPart(token, dataType);
+					}
 				}
 				else if (firstChar == '\"') {
-					StringSyntaxChecker(token, lineIndex);
+					dataType = StringSyntaxChecker(token, lineIndex);
+					currentIdentifier.AddExpressionPart(token, dataType);
 				}
 			}
 		}
 		else {
 
 		}
+		identifiersLineSorted.push_back(currentIdentifier);
 	}
 }
 
 AllDataTypes SyntaxParser::CharSyntaxChecker(string& token, size_t &lineIndex)
 {
+	// if only 1 character
 	if (token.size() == 3)
 	{
 		return Character;
 	}
 	else {
+		// if null character
 		if (token.size() == 2 && token == "\'\'") {
 			return Character;
 		}
@@ -54,7 +64,8 @@ AllDataTypes SyntaxParser::CharSyntaxChecker(string& token, size_t &lineIndex)
 
 AllDataTypes SyntaxParser::StringSyntaxChecker(string& token, size_t& lineIndex)
 {
-	if (token.size() > 3 && token.at(token.size() - 1) == '\"') {
+	// if 1 or more characters and quote at end
+	if (token.size() >= 3 && token.at(token.size() - 1) == '\"') {
 		return String;
 	}
 	else {

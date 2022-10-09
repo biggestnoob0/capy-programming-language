@@ -4,6 +4,8 @@
 #include "Compiler.h"
 #include <filesystem>
 #include <iostream>
+// testing
+#include <chrono>
 
 using std::string;
 using std::vector;
@@ -26,7 +28,11 @@ int main() {
 				srcFiles.push_back(file.path().generic_string());
 			}
 		}
+		auto start = std::chrono::high_resolution_clock::now();
 		Compile(srcFiles, dirstr);
+		auto end = std::chrono::high_resolution_clock::now();
+		auto timeTaken = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+		cout << "Time Taken To Compile: " << timeTaken.count() << "ms" << std::endl;
 	}
 	else {
 		cout << "invalid directory";

@@ -1,22 +1,19 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "..\DataTypeEnums.h"
 
 using std::string;
 using std::vector;
+using namespace DataTypes;
 
 struct Identifier
 {
 private:
 	vector<string> expressionParts{};
-	vector<string> exprPartsDataTypes{};
+	vector<AllDataTypes> exprPartsDataTypes{};
 public:
-	string type{};
+	AllDataTypes type{};
 	string name{};
-
-	Identifier(string type, string name, vector<string> expressionParts);
-	Identifier(string type, string name, string expression);
-
-	void AddExpressionPart(string expressionPart, string dataType);
+	void AddExpressionPart(string expressionPart, AllDataTypes dataType);
 };
-

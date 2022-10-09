@@ -18,6 +18,7 @@ Parser::Parser(string file) {
 }
 
 vector<string> Parser::ParseIdentifier(string& statement) {
+	// get rid of trailing white space
 	while (statement.at(0) == ' ') {
 		statement = statement.substr(1);
 	}
@@ -26,31 +27,41 @@ vector<string> Parser::ParseIdentifier(string& statement) {
 	size_t diff{};
 	size_t i{ 0 };
 	char prevChar{};
+	bool inQuotes{false};
 	size_t statementSize{ statement.size() };
 	std::vector<string> identifierAttribs{};
+	// splits identifier up into words using spaces
 	while (true) {
 		for (; true; i++) {
-			if (i == statementSize) {
+			char letter{ statement.at(i) };
+			if (i >= statementSize - 1) {
+				pos = i + 1;
 				break;
 			}
-			if (statement.at(i) == ' ') {
-				if (prevChar != ' ') {
-					pos = i;
-					prevChar = ' ';
-					break;
-				}
-				else {
-					prevPos++;
+			if (letter == '\'' || letter == '\"') {
+				inQuotes = !inQuotes;
+			}
+
+			if (letter == ' ') {
+				if (!inQuotes) {
+					if (prevChar != ' ') {
+						pos = i;
+						prevChar = ' ';
+						break;
+					}
+					else {
+						prevPos++;
+					}
 				}
 			}
-			prevChar = statement.at(i);
+			prevChar = letter;
 		}
 		diff = pos - prevPos;
 		identifierAttribs.push_back(statement.substr(prevPos, diff));
 
 		prevPos = pos;
 
-		if (i == statementSize) {
+		if (i >= statementSize - 1) {
 			break;
 		}
 	}

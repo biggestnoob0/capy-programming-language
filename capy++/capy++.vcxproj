@@ -131,7 +131,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Compiler.cpp" />
-    <ClCompile Include="DataTypeFinder.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="FundamentalDataTypes\Identifier.cpp" />
     <ClCompile Include="FundamentalDataTypes\Value.cpp" />
@@ -142,7 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compiler.h" />
-    <ClInclude Include="DataTypeFinder.h" />
+    <ClInclude Include="DataTypeEnums.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="FundamentalDataTypes\Identifier.h" />
     <ClInclude Include="FundamentalDataTypes\Value.h" />

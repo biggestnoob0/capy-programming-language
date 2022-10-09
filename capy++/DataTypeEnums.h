@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Error.h"
 
 using std::vector;
 namespace DataTypes {
@@ -60,9 +59,7 @@ namespace DataTypes {
 		Character16,
 		U_Character16,
 		String,
-		U_String,
 		String16,
-		U_String16,
 		Byte,
 		U_Byte,
 		Int16,
@@ -76,8 +73,8 @@ namespace DataTypes {
 		U_FloatNumber,
 		DoubleNumber,
 		U_DoubleNumber,
-		Boolean
+		Boolean,
+		ERROR_TYPE
 	};
 
-	AllDataTypes FindTokenDataType(const std::string &token, const int &line);
 }

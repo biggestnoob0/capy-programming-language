@@ -7,12 +7,16 @@ using std::vector;
 
 struct Identifier
 {
+private:
+	vector<string> expressionParts{};
+	vector<string> exprPartsDataTypes{};
+public:
 	string type{};
 	string name{};
-	vector<string> expressionParts{};
-	string evaluatedValue{};
 
 	Identifier(string type, string name, vector<string> expressionParts);
 	Identifier(string type, string name, string expression);
+
+	void AddExpressionPart(string expressionPart, string dataType);
 };
 

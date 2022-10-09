@@ -3,6 +3,7 @@
 int runtimeErrors{};
 string directoryBase{};
 string currentLogFile{};
+string currentCompilingFile{};
 
 void Compile(vector<string> files, string dir) {
 	const size_t fileAmnt{ files.size() };
@@ -14,6 +15,7 @@ void Compile(vector<string> files, string dir) {
 	vector<vector<vector<string>>> fileContentsList{};
 
 	for (string file : files) {
+		currentCompilingFile = file;
 		Parser parser{ file };
 		SyntaxParser syntaxParser{};
 		syntaxParser.ParseAllIdentifiers(parser.identifierData);

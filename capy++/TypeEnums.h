@@ -5,14 +5,14 @@
 using std::vector;
 namespace DataTypes {
 
-	enum DataTypeCategory
+	/*enum DataTypeCategory
 	{
 		character,
 		StringCat,
 		integer,
 		floatNumber,
 		boolean
-	};
+	};*/
 
 	//enum CharacterDataTypes
 	//{
@@ -52,7 +52,7 @@ namespace DataTypes {
 	//	boolean
 	//};
 
-	enum AllDataTypes
+	enum AllTypes
 	{
 		Character,
 		U_Character,
@@ -74,6 +74,15 @@ namespace DataTypes {
 		DoubleNumber,
 		U_DoubleNumber,
 		Boolean,
+		Addition,
+		Subtraction,
+		Multiplication,
+		Division,
+		Integer_Division,
+		Modulus,
+		AND,
+		OR,
+		NOT,
 		ERROR_TYPE
 	};
 

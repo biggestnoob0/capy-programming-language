@@ -9,18 +9,16 @@ void SyntaxParser::ParseAllIdentifiers(const vector<vector<string>>& linesInFile
 		if (size > 2) {
 			for (int tokenIterator = size - 1; tokenIterator >= 0; tokenIterator--) {
 				char firstChar = line.at(tokenIterator).at(0);
-				AllDataTypes dataType{};
+				AllTypes dataType{};
 				string token = line.at(tokenIterator);
+				if (token == "=") {
+					break;
+				}
 				if (std::isdigit(firstChar)) {
 					int dots = std::count(token.begin(), token.end(), '.');
-					if (dots == 0) {
-
-					}
-					else if (dots == 1) {
-
-					}
-					else {
-						//error
+					dataType = NumberSyntaxChecker(token, dots, lineIndex);
+					if (dataType != ERROR_TYPE) {
+						currentIdentifier.AddExpressionPart(token, dataType);
 					}
 				}
 				// else if string or char
@@ -32,9 +30,12 @@ void SyntaxParser::ParseAllIdentifiers(const vector<vector<string>>& linesInFile
 				}
 				else if (firstChar == '\"') {
 					dataType = StringSyntaxChecker(token, lineIndex);
-					currentIdentifier.AddExpressionPart(token, dataType);
+					if (dataType != ERROR_TYPE) {
+						currentIdentifier.AddExpressionPart(token, dataType);
+					}
 				}
 			}
+			// DO TYPE AND NAME CHECKS
 		}
 		else {
 
@@ -43,7 +44,7 @@ void SyntaxParser::ParseAllIdentifiers(const vector<vector<string>>& linesInFile
 	}
 }
 
-AllDataTypes SyntaxParser::CharSyntaxChecker(string& token, size_t &lineIndex)
+AllTypes SyntaxParser::CharSyntaxChecker(string& token, size_t &lineIndex)
 {
 	// if only 1 character
 	if (token.size() == 3)
@@ -62,7 +63,7 @@ AllDataTypes SyntaxParser::CharSyntaxChecker(string& token, size_t &lineIndex)
 	}
 }
 
-AllDataTypes SyntaxParser::StringSyntaxChecker(string& token, size_t& lineIndex)
+AllTypes SyntaxParser::StringSyntaxChecker(string& token, size_t& lineIndex)
 {
 	// if 1 or more characters and quote at end
 	if (token.size() >= 3 && token.at(token.size() - 1) == '\"') {
@@ -70,6 +71,30 @@ AllDataTypes SyntaxParser::StringSyntaxChecker(string& token, size_t& lineIndex)
 	}
 	else {
 		Error error{ "Expected a quote mark before the end of line", (int)lineIndex, "SYNTAX-ERROR" };
+		return ERROR_TYPE;
+	}
+}
+
+AllTypes SyntaxParser::NumberSyntaxChecker(string& token, int &dots, size_t& lineIndex)
+{
+	for (size_t i = 0; i < token.size(); i++) {
+		if (!std::isdigit(token.at(i))) {
+			return ERROR_TYPE;
+		}
+	}
+	if (dots == 0) {
+		if (token.size() > 9) {
+			return Int64;
+		}
+		else {
+			return Integer;
+		}
+	}
+	else if (dots == 1) {
+		return DoubleNumber;
+	}
+	else {
+		Error error{ "More than 1 decimal point", (int)lineIndex, "SYNTAX-ERROR" };
 		return ERROR_TYPE;
 	}
 }

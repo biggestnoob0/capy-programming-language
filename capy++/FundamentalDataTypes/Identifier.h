@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "..\DataTypeEnums.h"
+#include "..\TypeEnums.h"
 
 using std::string;
 using std::vector;
@@ -11,9 +11,15 @@ struct Identifier
 {
 private:
 	vector<string> expressionParts{};
-	vector<AllDataTypes> exprPartsDataTypes{};
+	vector<AllTypes> exprPartsDataTypes{};
+	AllTypes expressionType{};
 public:
-	AllDataTypes type{};
+	AllTypes userDefinedType{};
+	/// <summary>
+	/// the definitive type of the data
+	/// </summary>
+	AllTypes type{};
 	string name{};
-	void AddExpressionPart(string expressionPart, AllDataTypes dataType);
+	void AddExpressionPart(string expressionPart, AllTypes dataType);
+	void CompleteIdentifier(string name, AllTypes userDefinedType);
 };

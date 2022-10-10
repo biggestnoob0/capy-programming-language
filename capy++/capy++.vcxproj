@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="Compiler.cpp" />
     <ClCompile Include="Error.cpp" />
+    <ClCompile Include="ExpressionParser.cpp" />
     <ClCompile Include="FundamentalDataTypes\Identifier.cpp" />
     <ClCompile Include="FundamentalDataTypes\Value.cpp" />
     <ClCompile Include="FundamentalDataTypes\Variable.cpp" />
@@ -141,8 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compiler.h" />
-    <ClInclude Include="DataTypeEnums.h" />
+    <ClInclude Include="TypeEnums.h" />
     <ClInclude Include="Error.h" />
+    <ClInclude Include="ExpressionParser.h" />
     <ClInclude Include="FundamentalDataTypes\Identifier.h" />
     <ClInclude Include="FundamentalDataTypes\Value.h" />
     <ClInclude Include="FundamentalDataTypes\Variable.h" />

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "DataTypeEnums.h"
+#include "TypeEnums.h"
 #include "Error.h"
 #include "FundamentalDataTypes/Identifier.h"
 
@@ -12,8 +12,9 @@ using namespace DataTypes;
 class SyntaxParser
 {
 private:
-	AllDataTypes CharSyntaxChecker(string &token, size_t &lineIndex);
-	AllDataTypes StringSyntaxChecker(string &token, size_t &lineIndex);
+	AllTypes CharSyntaxChecker(string &token, size_t &lineIndex);
+	AllTypes StringSyntaxChecker(string &token, size_t &lineIndex);
+	AllTypes NumberSyntaxChecker(string& token, int &dots, size_t& lineIndex);
 public:
 	void ParseAllIdentifiers(const vector<vector<string>> &linesInFile);
 };

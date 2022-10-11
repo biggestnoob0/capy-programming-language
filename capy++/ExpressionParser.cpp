@@ -4,22 +4,23 @@ using namespace expressionEvaluationUtil;
 
 AllTypes EvaluateExpressionType(const vector<AllTypes>& expressionParts)
 {
-		switch (expressionParts.at(0)) {
-		case Boolean:
-			return BoolFirstType(expressionParts);
-		case String:
-		case Character:
-			return StringOrCharFirstType(expressionParts);
+	switch (expressionParts.at(0)) {
+	case Boolean:
+		return BoolFirstType(expressionParts);
+	case String:
+	case Character:
+		return StringOrCharFirstType(expressionParts);
 
-		case Byte:
-		case Int16:
-		case Integer:
+	case Byte:
+	case Int16:
+	case Integer:
+		break;
 
-
-		}
+	}
+	return ERROR_TYPE;
 }
 namespace expressionEvaluationUtil {
-	AllTypes BoolFirstType(const vector<AllTypes> &expressionParts) {
+	AllTypes BoolFirstType(const vector<AllTypes>& expressionParts) {
 		for (size_t i = 1; i < expressionParts.size(); i++) {
 			AllTypes current = expressionParts.at(i);
 			if (current != Boolean && current != AND && current != OR) {
@@ -33,6 +34,7 @@ namespace expressionEvaluationUtil {
 		for (size_t i = 1; i < expressionParts.size(); i++) {
 
 		}
+		return ERROR_TYPE;
 	}
 	AllTypes IntOrBelowFirstType(const vector<AllTypes>& expressionParts)
 	{
@@ -40,5 +42,6 @@ namespace expressionEvaluationUtil {
 			AllTypes current = expressionParts.at(i);
 			//FINISH THIS
 		}
+		return ERROR_TYPE;
 	}
 }

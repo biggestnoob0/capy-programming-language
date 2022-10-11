@@ -8,43 +8,91 @@ void SyntaxParser::ParseAllIdentifiers(const vector<vector<string>>& linesInFile
 		int size = line.size();
 		if (size > 2) {
 			for (int tokenIterator = size - 1; tokenIterator >= 0; tokenIterator--) {
-				char firstChar = line.at(tokenIterator).at(0);
-				AllTypes dataType{};
 				string token = line.at(tokenIterator);
-				if (token == "=") {
+				char firstChar = token.at(0);
+				AllTypes dataType{};
+				if (firstChar == '=') {
 					break;
 				}
-				if (std::isdigit(firstChar)) {
+				if (firstChar == '!') {
+					firstChar = token.at(1);
+				}
+				if (std::isdigit(firstChar) || firstChar == '-') {
 					int dots = std::count(token.begin(), token.end(), '.');
 					dataType = NumberSyntaxChecker(token, dots, lineIndex);
 					if (dataType != ERROR_TYPE) {
 						currentIdentifier.AddExpressionPart(token, dataType);
 					}
 				}
-				// else if string or char
-				else if (firstChar == '\'') {
-					dataType = CharSyntaxChecker(token, lineIndex);
-					if (dataType != ERROR_TYPE) {
-						currentIdentifier.AddExpressionPart(token, dataType);
+				else {
+					// else if non-numerical
+					switch (firstChar) {
+					case '\'':
+						dataType = CharSyntaxChecker(token, lineIndex);
+						if (dataType != ERROR_TYPE) {
+							currentIdentifier.AddExpressionPart(token, dataType);
+						}
+						break;
+					case '\"':
+						dataType = StringSyntaxChecker(token, lineIndex);
+						if (dataType != ERROR_TYPE) {
+							currentIdentifier.AddExpressionPart(token, dataType);
+						}
+						break;
+					case 't':
+						dataType = BoolTrueSyntaxChecker(token, lineIndex);
+						if (dataType != ERROR_TYPE) {
+							currentIdentifier.AddExpressionPart(token, dataType);
+						}
+						break;
+					case 'f':
+						dataType = BoolFalseSyntaxChecker(token, lineIndex);
+						if (dataType != ERROR_TYPE) {
+							currentIdentifier.AddExpressionPart(token, dataType);
+						}
+						break;
+					case '+':
+						if (token.size() == 1) {
+							currentIdentifier.AddExpressionPart(token, Addition);
+						}
+						break;
+					case '-':
+						if (token.size() == 1) {
+							currentIdentifier.AddExpressionPart(token, Subtraction);
+						}
+						break;
+					case '*':
+						if (token.size() == 1) {
+							currentIdentifier.AddExpressionPart(token, Multiplication);
+						}
+						break;
+					case '/':
+						if (token.size() == 1) {
+							currentIdentifier.AddExpressionPart(token, Division);
+						}
+						break;
+
+					case '%':
+						if (token.size() == 1) {
+							currentIdentifier.AddExpressionPart(token, Multiplication);
+						}
+						break;
 					}
-				}
-				else if (firstChar == '\"') {
-					dataType = StringSyntaxChecker(token, lineIndex);
-					if (dataType != ERROR_TYPE) {
-						currentIdentifier.AddExpressionPart(token, dataType);
+
+					if (token == "&&") {
+						currentIdentifier.AddExpressionPart(token, AND);
 					}
+					else if (token == "||") {
+						currentIdentifier.AddExpressionPart(token, OR);
+					}
+					// DO TYPE AND NAME CHECKS
 				}
 			}
-			// DO TYPE AND NAME CHECKS
+			identifiersLineSorted.push_back(currentIdentifier);
 		}
-		else {
-
-		}
-		identifiersLineSorted.push_back(currentIdentifier);
 	}
 }
-
-AllTypes SyntaxParser::CharSyntaxChecker(string& token, size_t &lineIndex)
+AllTypes SyntaxParser::CharSyntaxChecker(string& token, size_t& lineIndex)
 {
 	// if only 1 character
 	if (token.size() == 3)
@@ -75,10 +123,13 @@ AllTypes SyntaxParser::StringSyntaxChecker(string& token, size_t& lineIndex)
 	}
 }
 
-AllTypes SyntaxParser::NumberSyntaxChecker(string& token, int &dots, size_t& lineIndex)
+AllTypes SyntaxParser::NumberSyntaxChecker(string& token, int& dots, size_t& lineIndex)
 {
 	for (size_t i = 0; i < token.size(); i++) {
 		if (!std::isdigit(token.at(i))) {
+			if (token.at(i) == '.') {
+				continue;
+			}
 			return ERROR_TYPE;
 		}
 	}
@@ -97,4 +148,22 @@ AllTypes SyntaxParser::NumberSyntaxChecker(string& token, int &dots, size_t& lin
 		Error error{ "More than 1 decimal point", (int)lineIndex, "SYNTAX-ERROR" };
 		return ERROR_TYPE;
 	}
+}
+
+AllTypes SyntaxParser::BoolTrueSyntaxChecker(string& token, size_t& lineIndex)
+{
+	if (token == "true" || token == "!true") {
+		return Boolean;
+	}
+	Error error{ "No quote marks specified", (int)lineIndex, "SYNTAX-ERROR" };
+	return ERROR_TYPE;
+}
+
+AllTypes SyntaxParser::BoolFalseSyntaxChecker(string& token, size_t& lineIndex)
+{
+	if (token == "false" || token == "!false") {
+		return Boolean;
+	}
+	Error error{ "No quote marks specified", (int)lineIndex, "SYNTAX-ERROR" };
+	return ERROR_TYPE;
 }

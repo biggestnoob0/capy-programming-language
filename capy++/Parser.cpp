@@ -22,13 +22,17 @@ vector<string> Parser::ParseIdentifier(string& statement) {
 	while (statement.at(0) == ' ') {
 		statement = statement.substr(1);
 	}
+	size_t statementSize{ statement.size() };
+	while (statement.at(statementSize - 1) == ' ') {
+		statement = statement.substr(0, statementSize - 1);
+		statementSize--;
+	}
 	size_t pos{};
 	size_t prevPos{};
 	size_t diff{};
 	size_t i{ 0 };
 	char prevChar{};
 	bool inQuotes{false};
-	size_t statementSize{ statement.size() };
 	std::vector<string> identifierAttribs{};
 	// splits identifier up into words using spaces
 	while (true) {

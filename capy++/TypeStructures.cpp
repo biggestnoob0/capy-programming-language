@@ -3,13 +3,20 @@ using namespace DataTypes;
 
 DataTypeMap::DataTypeMap()
 {
-	typesAsStringsNoUnsigned["char"] = "char";
-	typesAsStringsNoUnsigned["string"] = "string";
-	typesAsStringsNoUnsigned["bool"] = "bool";
-	typesAsStringsNoUnsigned["byte"] = "byte";
-	typesAsStringsNoUnsigned["int16"] = "int16";
-	typesAsStringsNoUnsigned["int"] = "int";
-	typesAsStringsNoUnsigned["int64"] = "int64";
-	typesAsStringsNoUnsigned["float"] = "float";
-	typesAsStringsNoUnsigned["double"] = "double";
+	typesMapped["char"] = Character;
+	typesMapped["string"] = String;
+	typesMapped["bool"] = Boolean;
+	typesMapped["byte"] = Byte;
+	typesMapped["int16"] = Int16;
+	typesMapped["int"] = Integer;
+	typesMapped["int64"] = Int64;
+	typesMapped["float"] = FloatNumber;
+	typesMapped["double"] = DoubleNumber;
+
+	typesMapped["usign byte"] = U_Byte;
+	typesMapped["usign int16"] = U_Int16;
+	typesMapped["usign int"] = U_Integer;
+	typesMapped["usign int64"] = U_Int64;
+	typesMapped["usign float"] = U_FloatNumber;
+	typesMapped["usign double"] = U_DoubleNumber;
 }

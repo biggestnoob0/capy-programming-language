@@ -85,7 +85,7 @@ namespace DataTypes {
 	};
 	struct DataTypeMap
 	{
-		std::unordered_map<string, string> typesAsStringsNoUnsigned;
+		std::unordered_map<string, AllTypes> typesMapped;
 		DataTypeMap();
 	};
 }

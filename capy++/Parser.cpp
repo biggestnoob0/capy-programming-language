@@ -29,9 +29,6 @@ IdentifierAttributes Parser::ParseIdentifier(string& statement) {
 		statementSize--;
 	}
 	bool initalised{false};
-	if (statement.size() == 1 && statement.at(0) == '=') {
-		initalised = true;
-	}
 
 	size_t pos{};
 	size_t prevPos{};
@@ -73,6 +70,11 @@ IdentifierAttributes Parser::ParseIdentifier(string& statement) {
 
 		if (i >= statementSize - 1) {
 			break;
+		}
+	}
+	for (size_t i = 0; i < identifierAttribs.size(); i++) {
+		if (identifierAttribs.at(i).size() == 1 && identifierAttribs.at(i).at(0) == '=') {
+			initalised = true;
 		}
 	}
 	return IdentifierAttributes{identifierAttribs, initalised};

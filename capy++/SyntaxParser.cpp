@@ -1,6 +1,7 @@
 #include "SyntaxParser.h"
 
 void SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes>& linesInFile) {
+	DataTypeMap typeMap{};
 	vector<Identifier> identifiersLineSorted{};
 	for (size_t lineIndex = 0; lineIndex < linesInFile.size(); lineIndex++) {
 		Identifier currentIdentifier{};
@@ -8,7 +9,7 @@ void SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes>& lines
 		int size = line.attributes.size();
 		if (line.initialised) {
 			// non zero pos for loop below token iterator loop
-			int equalsPos{1};
+			int equalsPos{ 1 };
 			for (int tokenIterator = size - 1; tokenIterator >= 0; tokenIterator--) {
 				string token = line.attributes.at(tokenIterator);
 				char firstChar = token.at(0);
@@ -90,12 +91,42 @@ void SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes>& lines
 					}
 				}
 			}
-			for (size_t nameTypeIterator{}; nameTypeIterator < equalsPos; nameTypeIterator++) {
-				string token = line.attributes.at(nameTypeIterator);
-				switch (token) {
+			AllTypes dataType{};
+			string name{};
+			string token = line.attributes.at(0);
+			std::_List_iterator place = typeMap.typesMapped.find(token);
+			if (place != typeMap.typesMapped.end()) {
+				dataType = typeMap.typesMapped.at(token);
 
+				token = line.attributes.at(1);
+				if (std::isalpha(token.at(0))) {
+					name = token;
+				}
+				else {
+					//ERROR
 				}
 			}
+			else if (token == "usign") {
+				token = line.attributes.at(1);
+				if (place != typeMap.typesMapped.end()) {
+					dataType = typeMap.typesMapped.at("usign " + token);
+
+					token = line.attributes.at(2);
+					if (std::isalpha(token.at(0))) {
+						name = token;
+					}
+					else {
+						//ERROR
+					}
+				}
+				else {
+					//ERROR
+				}
+			}
+			else {
+				//ERROR
+			}
+			currentIdentifier.CompleteIdentifier(name, dataType);
 			identifiersLineSorted.push_back(currentIdentifier);
 		}
 	}

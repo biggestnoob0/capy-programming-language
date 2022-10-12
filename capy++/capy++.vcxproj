@@ -139,10 +139,12 @@
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SyntaxParser.cpp" />
+    <ClCompile Include="TypeStructures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compiler.h" />
-    <ClInclude Include="TypeEnums.h" />
+    <ClInclude Include="FundamentalDataTypes\IdentifierAttributes.h" />
+    <ClInclude Include="TypeStructures.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="ExpressionParser.h" />
     <ClInclude Include="FundamentalDataTypes\Identifier.h" />

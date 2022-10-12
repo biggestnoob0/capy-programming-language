@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "TypeEnums.h"
+#include "TypeStructures.h"
 #include "Error.h"
 #include "FundamentalDataTypes/Identifier.h"
+#include "FundamentalDataTypes/IdentifierAttributes.h"
 
 using std::string;
 using std::vector;
@@ -18,6 +19,6 @@ private:
 	AllTypes BoolTrueSyntaxChecker(string& token, size_t& lineIndex);
 	AllTypes BoolFalseSyntaxChecker(string& token, size_t& lineIndex);
 public:
-	void ParseAllIdentifiers(const vector<vector<string>> &linesInFile);
+	void ParseAllIdentifiers(const vector<IdentifierAttributes> &linesInFile);
 };
 

@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using std::vector;
+using std::string;
 namespace DataTypes {
 
 	/*enum DataTypeCategory
@@ -55,11 +57,7 @@ namespace DataTypes {
 	enum AllTypes
 	{
 		Character,
-		U_Character,
-		Character16,
-		U_Character16,
 		String,
-		String16,
 		Byte,
 		U_Byte,
 		Int16,
@@ -85,5 +83,9 @@ namespace DataTypes {
 		NOT,
 		ERROR_TYPE
 	};
-
+	struct DataTypeMap
+	{
+		std::unordered_map<string, string> typesAsStringsNoUnsigned;
+		DataTypeMap();
+	};
 }

@@ -42,6 +42,9 @@
     <ClCompile Include="ExpressionParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TypeStructures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compiler.h">
@@ -53,7 +56,7 @@
     <ClInclude Include="Globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TypeEnums.h">
+    <ClInclude Include="TypeStructures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Error.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExpressionParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FundamentalDataTypes\IdentifierAttributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

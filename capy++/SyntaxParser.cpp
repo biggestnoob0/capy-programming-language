@@ -1,17 +1,20 @@
 #include "SyntaxParser.h"
 
-void SyntaxParser::ParseAllIdentifiers(const vector<vector<string>>& linesInFile) {
+void SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes>& linesInFile) {
 	vector<Identifier> identifiersLineSorted{};
 	for (size_t lineIndex = 0; lineIndex < linesInFile.size(); lineIndex++) {
 		Identifier currentIdentifier{};
-		vector<string> line = linesInFile.at(lineIndex);
-		int size = line.size();
-		if (size > 2) {
+		IdentifierAttributes line = linesInFile.at(lineIndex);
+		int size = line.attributes.size();
+		if (line.initialised) {
+			// non zero pos for loop below token iterator loop
+			int equalsPos{1};
 			for (int tokenIterator = size - 1; tokenIterator >= 0; tokenIterator--) {
-				string token = line.at(tokenIterator);
+				string token = line.attributes.at(tokenIterator);
 				char firstChar = token.at(0);
 				AllTypes dataType{};
-				if (firstChar == '=') {
+				if (firstChar == '=' && token.size() == 1) {
+					equalsPos = tokenIterator;
 					break;
 				}
 				if (firstChar == '!') {
@@ -85,7 +88,12 @@ void SyntaxParser::ParseAllIdentifiers(const vector<vector<string>>& linesInFile
 					else if (token == "||") {
 						currentIdentifier.AddExpressionPart(token, OR);
 					}
-					// DO TYPE AND NAME CHECKS
+				}
+			}
+			for (size_t nameTypeIterator{}; nameTypeIterator < equalsPos; nameTypeIterator++) {
+				string token = line.attributes.at(nameTypeIterator);
+				switch (token) {
+
 				}
 			}
 			identifiersLineSorted.push_back(currentIdentifier);

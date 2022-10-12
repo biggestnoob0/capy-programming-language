@@ -12,7 +12,7 @@ void Compile(vector<string> files, string dir) {
 	// layer 1: all files contents
 	// layer 2: a files contents
 	// layer 3: a lines contents
-	vector<vector<vector<string>>> fileContentsList{};
+	vector<vector<IdentifierAttributes>> fileContentsList{};
 
 	for (string file : files) {
 		currentCompilingFile = file;

@@ -17,16 +17,22 @@ Parser::Parser(string file) {
 	reader.close();
 }
 
-vector<string> Parser::ParseIdentifier(string& statement) {
+IdentifierAttributes Parser::ParseIdentifier(string& statement) {
 	// get rid of trailing white space
 	while (statement.at(0) == ' ') {
 		statement = statement.substr(1);
 	}
 	size_t statementSize{ statement.size() };
+	// get rid of end white space
 	while (statement.at(statementSize - 1) == ' ') {
 		statement = statement.substr(0, statementSize - 1);
 		statementSize--;
 	}
+	bool initalised{false};
+	if (statement.size() == 1 && statement.at(0) == '=') {
+		initalised = true;
+	}
+
 	size_t pos{};
 	size_t prevPos{};
 	size_t diff{};
@@ -69,5 +75,5 @@ vector<string> Parser::ParseIdentifier(string& statement) {
 			break;
 		}
 	}
-	return identifierAttribs;
+	return IdentifierAttributes{identifierAttribs, initalised};
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <fstream>
 #include "Parser.h"
+#include "FundamentalDataTypes/IdentifierAttributes.h"
 #include <string>
 #include <vector>
 
@@ -12,9 +13,9 @@ using std::vector;
 class Parser
 {
 private:
-	vector<string> ParseIdentifier(string& statement);
+	IdentifierAttributes ParseIdentifier(string& statement);
 public:
-	vector<vector<string>> identifierData{};
+	vector<IdentifierAttributes> identifierData{};
 
 	Parser(string file);
 };

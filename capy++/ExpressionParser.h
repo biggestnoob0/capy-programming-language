@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "TypeEnums.h"
+#include "TypeStructures.h"
 
 using std::string;
 using std::vector;

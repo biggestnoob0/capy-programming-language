@@ -24,36 +24,36 @@ void SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes>& lines
 				if (std::isdigit(firstChar) || firstChar == '-') {
 					int dots = std::count(token.begin(), token.end(), '.');
 					dataType = NumberSyntaxChecker(token, dots, lineIndex);
-					if (dataType != ERROR_TYPE) {
-						currentIdentifier.AddExpressionPart(token, dataType);
-					}
+
+					currentIdentifier.AddExpressionPart(token, dataType);
+
 				}
 				else {
 					// else if non-numerical
 					switch (firstChar) {
 					case '\'':
 						dataType = CharSyntaxChecker(token, lineIndex);
-						if (dataType != ERROR_TYPE) {
-							currentIdentifier.AddExpressionPart(token, dataType);
-						}
+
+						currentIdentifier.AddExpressionPart(token, dataType);
+
 						break;
 					case '\"':
 						dataType = StringSyntaxChecker(token, lineIndex);
-						if (dataType != ERROR_TYPE) {
-							currentIdentifier.AddExpressionPart(token, dataType);
-						}
+
+						currentIdentifier.AddExpressionPart(token, dataType);
+
 						break;
 					case 't':
 						dataType = BoolTrueSyntaxChecker(token, lineIndex);
-						if (dataType != ERROR_TYPE) {
-							currentIdentifier.AddExpressionPart(token, dataType);
-						}
+
+						currentIdentifier.AddExpressionPart(token, dataType);
+
 						break;
 					case 'f':
 						dataType = BoolFalseSyntaxChecker(token, lineIndex);
-						if (dataType != ERROR_TYPE) {
-							currentIdentifier.AddExpressionPart(token, dataType);
-						}
+
+						currentIdentifier.AddExpressionPart(token, dataType);
+
 						break;
 					case '+':
 						if (token.size() == 1) {
@@ -91,44 +91,44 @@ void SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes>& lines
 					}
 				}
 			}
-			AllTypes dataType{};
-			string name{};
-			string token = line.attributes.at(0);
-			std::_List_iterator place = typeMap.typesMapped.find(token);
-			if (place != typeMap.typesMapped.end()) {
-				dataType = typeMap.typesMapped.at(token);
+		}
+		AllTypes dataType{};
+		string name{};
+		string token = line.attributes.at(0);
+		std::_List_iterator place = typeMap.typesMapped.find(token);
+		if (place != typeMap.typesMapped.end()) {
+			dataType = typeMap.typesMapped.at(token);
 
-				token = line.attributes.at(1);
+			token = line.attributes.at(1);
+			if (std::isalpha(token.at(0))) {
+				name = token;
+			}
+			else {
+				Error error{ "The first character in a variable name must be an alpha character", (int)lineIndex, "SYNTAX-ERROR" };
+			}
+		}
+		else if (token == "usign") {
+			token = line.attributes.at(1);
+			if (place != typeMap.typesMapped.end()) {
+				dataType = typeMap.typesMapped.at("usign " + token);
+
+				token = line.attributes.at(2);
 				if (std::isalpha(token.at(0))) {
 					name = token;
 				}
 				else {
-					//ERROR
-				}
-			}
-			else if (token == "usign") {
-				token = line.attributes.at(1);
-				if (place != typeMap.typesMapped.end()) {
-					dataType = typeMap.typesMapped.at("usign " + token);
-
-					token = line.attributes.at(2);
-					if (std::isalpha(token.at(0))) {
-						name = token;
-					}
-					else {
-						//ERROR
-					}
-				}
-				else {
-					//ERROR
+					Error error{ "The first character in a variable name must be an alpha character", (int)lineIndex, "SYNTAX-ERROR" };
 				}
 			}
 			else {
-				//ERROR
+				Error error{ "Invalid type", (int)lineIndex, "SYNTAX-ERROR" };
 			}
-			currentIdentifier.CompleteIdentifier(name, dataType);
-			identifiersLineSorted.push_back(currentIdentifier);
 		}
+		else {
+			Error error{ "Invalid or missing type/keyword", (int)lineIndex, "SYNTAX-ERROR" };
+		}
+		currentIdentifier.CompleteIdentifier(name, dataType, (int)lineIndex);
+		identifiersLineSorted.push_back(currentIdentifier);
 	}
 }
 AllTypes SyntaxParser::CharSyntaxChecker(string& token, size_t& lineIndex)

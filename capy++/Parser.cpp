@@ -72,6 +72,7 @@ IdentifierAttributes Parser::ParseIdentifier(string& statement) {
 			break;
 		}
 	}
+	// check for variable having initial value
 	for (size_t i = 0; i < identifierAttribs.size(); i++) {
 		if (identifierAttribs.at(i).size() == 1 && identifierAttribs.at(i).at(0) == '=') {
 			initalised = true;

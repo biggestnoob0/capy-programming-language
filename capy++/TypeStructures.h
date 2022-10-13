@@ -81,11 +81,12 @@ namespace DataTypes {
 		AND,
 		OR,
 		NOT,
-		ERROR_TYPE
+		ERROR_TYPE,
+		NO_TYPE
 	};
 	struct DataTypeMap
 	{
-		std::unordered_map<string, AllTypes> typesMapped;
+		std::unordered_map<string, AllTypes> typesMapped{};
 		DataTypeMap();
 	};
 }

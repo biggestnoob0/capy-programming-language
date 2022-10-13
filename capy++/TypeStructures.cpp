@@ -3,6 +3,7 @@ using namespace DataTypes;
 
 DataTypeMap::DataTypeMap()
 {
+	
 	typesMapped["char"] = Character;
 	typesMapped["string"] = String;
 	typesMapped["bool"] = Boolean;

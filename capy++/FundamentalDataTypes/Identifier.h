@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include "..\TypeStructures.h"
+#include "..\ExpressionParser.h"
+#include "..\Error.h"
 
 using std::string;
 using std::vector;
@@ -21,5 +23,5 @@ public:
 	AllTypes type{};
 	string name{};
 	void AddExpressionPart(string expressionPart, AllTypes dataType);
-	void CompleteIdentifier(string name, AllTypes userDefinedType);
+	void CompleteIdentifier(string name, AllTypes userDefinedType, int lineIdentified);
 };

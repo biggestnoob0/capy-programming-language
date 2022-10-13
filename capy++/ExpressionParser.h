@@ -22,5 +22,7 @@ namespace expressionEvaluationUtil {
 
 	AllTypes StringOrCharFirstType(const vector<AllTypes>& expressionParts);
 
-	AllTypes IntOrBelowFirstType(const vector<AllTypes>& expressionParts);
+	AllTypes IntFirstType(const vector<AllTypes>& expressionParts);
+
+	AllTypes DoubleFirstType(const vector<AllTypes>& expressionParts);
 }

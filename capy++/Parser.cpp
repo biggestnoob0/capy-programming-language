@@ -1,5 +1,9 @@
 #include "Parser.h"
 
+/// <summary>
+/// parses a file and returns the attributes of each line along with the separated words
+/// </summary>
+/// <param name="file"></param>
 Parser::Parser(string file) {
 	std::ifstream reader{ file };
 	std::string line{};

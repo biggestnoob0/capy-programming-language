@@ -4,11 +4,15 @@
 #include "..\TypeStructures.h"
 #include "..\ExpressionParser.h"
 #include "..\Error.h"
+#include "..\TypeParser.h"
 
 using std::string;
 using std::vector;
 using namespace DataTypes;
-
+struct Identifer;
+/// <summary>
+/// the data to build a variable
+/// </summary>
 struct Identifier
 {
 private:
@@ -18,7 +22,7 @@ private:
 public:
 	AllTypes userDefinedType{};
 	/// <summary>
-	/// the definitive type of the data
+	/// the overall type of the data
 	/// </summary>
 	AllTypes type{};
 	string name{};

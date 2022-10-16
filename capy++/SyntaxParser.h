@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <unordered_map>
 #include "TypeStructures.h"
 #include "Error.h"
 #include "FundamentalDataTypes/Identifier.h"
@@ -15,10 +17,11 @@ class SyntaxParser
 private:
 	AllTypes CharSyntaxChecker(string &token, size_t &lineIndex);
 	AllTypes StringSyntaxChecker(string &token, size_t &lineIndex);
-	AllTypes NumberSyntaxChecker(string& token, int &dots, size_t& lineIndex);
-	AllTypes BoolTrueSyntaxChecker(string& token, size_t& lineIndex);
-	AllTypes BoolFalseSyntaxChecker(string& token, size_t& lineIndex);
-public:
-	void ParseAllIdentifiers(const vector<IdentifierAttributes> &linesInFile);
-};
+	AllTypes NumberSyntaxChecker(string &token, int &dots, size_t &lineIndex);
+	AllTypes BoolTrueSyntaxChecker(string &token, size_t &lineIndex);
+	AllTypes BoolFalseSyntaxChecker(string &token, size_t &lineIndex);
 
+
+public:
+	std::unique_ptr<Identifer> ParseAllIdentifiers(const vector<IdentifierAttributes> &linesInFile);
+};

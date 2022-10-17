@@ -13,8 +13,11 @@ void Compile(vector<string> files, string dir) {
 		currentCompilingFile = file;
 		Parser parser{ file };
 		SyntaxParser syntaxParser{};
-		vector<std::unique_ptr<Identifer>> identifiers{};
-		identifiers.push_back(syntaxParser.ParseAllIdentifiers(parser.identifierData));
+		vector<Identifier*> identifiers{};
+		identifiers = syntaxParser.ParseAllIdentifiers(parser.identifierData);
+		for (size_t i = 0; i < identifiers.size(); i++) {
+			delete identifiers.at(i);
+		}
 	}
 	if (runtimeErrors > 0) {
 		StopApplication();

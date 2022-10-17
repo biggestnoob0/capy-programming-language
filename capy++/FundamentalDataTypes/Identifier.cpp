@@ -1,16 +1,12 @@
 #include "Identifier.h"
 
-void Identifier::AddExpressionPart(string expressionPart, AllTypes type)
-{
-	this->expressionParts.push_back(expressionPart);
-	this->exprPartsDataTypes.push_back(type);
-}
-
 /// <summary>
 /// use when all expressions have been added
 /// </summary>
-void Identifier::CompleteIdentifier(string name, AllTypes userDefinedType, int lineIdentified)
+Identifier::Identifier(vector<string> expressionParts, vector<AllTypes> exprPartsDataTypes, string name, AllTypes userDefinedType, int lineIdentified)
 {
+	this->expressionParts = expressionParts;
+	this->exprPartsDataTypes = exprPartsDataTypes;
 	this->name = name;
 	this->userDefinedType = userDefinedType;
 

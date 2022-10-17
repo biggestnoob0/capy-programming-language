@@ -12,6 +12,8 @@ using std::string;
 using std::vector;
 using namespace DataTypes;
 
+struct Identifier;
+
 class SyntaxParser
 {
 private:
@@ -23,5 +25,5 @@ private:
 
 
 public:
-	std::unique_ptr<Identifer> ParseAllIdentifiers(const vector<IdentifierAttributes> &linesInFile);
+	vector<Identifier *> ParseAllIdentifiers(const vector<IdentifierAttributes> &linesInFile);
 };

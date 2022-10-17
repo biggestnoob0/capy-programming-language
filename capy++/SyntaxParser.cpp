@@ -1,12 +1,13 @@
 #include "SyntaxParser.h"
 
-std::unique_ptr<Identifer> SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes> &linesInFile)
+vector<Identifier *> SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAttributes> &linesInFile)
 {
 	DataTypeMap typeMap{};
-	std::unique_ptr<Identifer> allIdentifiers{};
+	vector<Identifier*> allIdentifiers{};
 	for (size_t lineIndex = 0; lineIndex < linesInFile.size(); lineIndex++)
 	{
-		Identifier currentIdentifier{};
+		vector<string> currentIdentifierExpressions{};
+		vector<AllTypes> currentIdentifierExpressionTypes{};
 		IdentifierAttributes line = linesInFile.at(lineIndex);
 		int size = line.attributes.size();
 		if (line.initialised)
@@ -31,8 +32,9 @@ std::unique_ptr<Identifer> SyntaxParser::ParseAllIdentifiers(const vector<Identi
 				{
 					int dots = std::count(token.begin(), token.end(), '.');
 					dataType = NumberSyntaxChecker(token, dots, lineIndex);
-
-					currentIdentifier.AddExpressionPart(token, dataType);
+					
+					currentIdentifierExpressions.push_back(token);
+					currentIdentifierExpressionTypes.push_back(dataType);
 				}
 				else
 				{
@@ -42,67 +44,78 @@ std::unique_ptr<Identifer> SyntaxParser::ParseAllIdentifiers(const vector<Identi
 					case '\'':
 						dataType = CharSyntaxChecker(token, lineIndex);
 
-						currentIdentifier.AddExpressionPart(token, dataType);
+						currentIdentifierExpressions.push_back(token);
+						currentIdentifierExpressionTypes.push_back(dataType);
 
 						break;
 					case '\"':
 						dataType = StringSyntaxChecker(token, lineIndex);
 
-						currentIdentifier.AddExpressionPart(token, dataType);
+						currentIdentifierExpressions.push_back(token);
+						currentIdentifierExpressionTypes.push_back(dataType);
 
 						break;
 					case 't':
 						dataType = BoolTrueSyntaxChecker(token, lineIndex);
 
-						currentIdentifier.AddExpressionPart(token, dataType);
+						currentIdentifierExpressions.push_back(token);
+						currentIdentifierExpressionTypes.push_back(dataType);
 
 						break;
 					case 'f':
 						dataType = BoolFalseSyntaxChecker(token, lineIndex);
 
-						currentIdentifier.AddExpressionPart(token, dataType);
+						currentIdentifierExpressions.push_back(token);
+						currentIdentifierExpressionTypes.push_back(dataType);
 
 						break;
 					case '+':
 						if (token.size() == 1)
 						{
-							currentIdentifier.AddExpressionPart(token, Addition);
+							currentIdentifierExpressions.push_back(token);
+							currentIdentifierExpressionTypes.push_back(Addition);
 						}
 						break;
 					case '-':
 						if (token.size() == 1)
 						{
-							currentIdentifier.AddExpressionPart(token, Subtraction);
+							currentIdentifierExpressions.push_back(token);
+							currentIdentifierExpressionTypes.push_back(Subtraction);
 						}
 						break;
 					case '*':
 						if (token.size() == 1)
 						{
-							currentIdentifier.AddExpressionPart(token, Multiplication);
+							currentIdentifierExpressions.push_back(token);
+							currentIdentifierExpressionTypes.push_back(Multiplication);
 						}
 						break;
 					case '/':
 						if (token.size() == 1)
 						{
-							currentIdentifier.AddExpressionPart(token, Division);
+							currentIdentifierExpressions.push_back(token);
+							currentIdentifierExpressionTypes.push_back(Division);
 						}
 						break;
 
 					case '%':
 						if (token.size() == 1)
 						{
-							currentIdentifier.AddExpressionPart(token, Multiplication);
+							currentIdentifierExpressions.push_back(token);
+							currentIdentifierExpressionTypes.push_back(Modulus);
 						}
 						break;
 					}
 
 					if (token == "&&")
 					{
-						currentIdentifier.AddExpressionPart(token, AND);
+						currentIdentifierExpressions.push_back(token);
+						currentIdentifierExpressionTypes.push_back(AND);
 					}
 					else if (token == "||")
 					{
-						currentIdentifier.AddExpressionPart(token, OR);
+						currentIdentifierExpressions.push_back(token);
+						currentIdentifierExpressionTypes.push_back(OR);
 					}
 				}
 			}
@@ -150,9 +163,9 @@ std::unique_ptr<Identifer> SyntaxParser::ParseAllIdentifiers(const vector<Identi
 		{
 			Error error{"Invalid or missing type/keyword", (int)lineIndex, "SYNTAX-ERROR"};
 		}
-		currentIdentifier.CompleteIdentifier(name, dataType, (int)lineIndex);
+		allIdentifiers.push_back(new Identifier(currentIdentifierExpressions, currentIdentifierExpressionTypes, name, dataType, (int)lineIndex));
 	}
-	return;
+	return allIdentifiers;
 }
 AllTypes SyntaxParser::CharSyntaxChecker(string &token, size_t &lineIndex)
 {

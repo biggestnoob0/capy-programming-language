@@ -9,7 +9,6 @@
 using std::string;
 using std::vector;
 using namespace DataTypes;
-struct Identifer;
 /// <summary>
 /// the data to build a variable
 /// </summary>
@@ -26,6 +25,5 @@ public:
 	/// </summary>
 	AllTypes type{};
 	string name{};
-	void AddExpressionPart(string expressionPart, AllTypes dataType);
-	void CompleteIdentifier(string name, AllTypes userDefinedType, int lineIdentified);
+	Identifier(vector<string> expressionParts, vector<AllTypes> exprPartsDataTypes, string name, AllTypes userDefinedType, int lineIdentified);
 };

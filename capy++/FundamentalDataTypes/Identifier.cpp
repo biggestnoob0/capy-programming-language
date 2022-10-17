@@ -23,11 +23,13 @@ Identifier::Identifier(vector<string> expressionParts, vector<AllTypes> exprPart
 
 	if (this->expressionType == ERROR_TYPE) {
 		Error error{ "Invalid expression, types do not match",  lineIdentified, "TYPE-COMPATIBILITY-ERROR"};
+		return;
 	}
 
 	//evaluates the overall type of the identifier
 	this->type = TypeParser::IdentifierOverallType(expressionType, userDefinedType);
 	if (this->type == ERROR_TYPE) {
 		Error error{ "Expression type and user type do not match",  lineIdentified, "TYPE-COMPATIBILITY-ERROR" };
+		return;
 	}
 }

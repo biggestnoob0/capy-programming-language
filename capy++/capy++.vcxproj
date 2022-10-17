@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Compiler.cpp" />
+    <ClCompile Include="DebugConsole.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="ExpressionParser.cpp" />
     <ClCompile Include="FundamentalDataTypes\Identifier.cpp" />
@@ -141,9 +142,11 @@
     <ClCompile Include="SyntaxParser.cpp" />
     <ClCompile Include="TypeParser.cpp" />
     <ClCompile Include="TypeStructures.cpp" />
+    <ClCompile Include="VariableConstructor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Compiler.h" />
+    <ClInclude Include="DebugConsole.h" />
     <ClInclude Include="FundamentalDataTypes\IdentifierAttributes.h" />
     <ClInclude Include="TypeParser.h" />
     <ClInclude Include="TypeStructures.h" />
@@ -155,6 +158,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="SyntaxParser.h" />
+    <ClInclude Include="VariableConstructor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

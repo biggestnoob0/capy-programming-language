@@ -5,12 +5,11 @@
 using std::string;
 using namespace DataTypes;
 
-template <typename T>
 struct Variable
 {
-	const string varName;
-	T ValueHeld;
+	string varName;
+	string ValueHeldAsStr;
 	AllTypes varType;
 
-	Variable(string name, T value, AllTypes type);
+	Variable(string name, string valueAsStr, AllTypes type);
 };

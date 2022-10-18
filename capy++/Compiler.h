@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "SyntaxParser.h"
 #include "VariableConstructor.h"
+#include <functional>
 #include <string>
 #include <vector>
 //testing only

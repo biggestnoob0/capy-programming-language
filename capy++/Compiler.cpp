@@ -15,13 +15,12 @@ void Compile(vector<string> files, string dir) {
 		SyntaxParser syntaxParser{};
 
 		vector<Identifier*> identifiers{};
-
 		identifiers = syntaxParser.ParseAllIdentifiers(parser.identifierData);
 		for (Identifier *identifier : identifiers) {
 			Identifier temp{ *identifier };
-			Debugging::WriteIdentifierToConsole(temp);
+			/*Debugging::WriteIdentifierToConsole(temp);*/
+			VariableConstructor::ConstructVars(temp);
 		}
-
 		for (size_t i = 0; i < identifiers.size(); i++) {
 			delete identifiers.at(i);
 		}

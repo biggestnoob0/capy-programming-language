@@ -1,7 +1,6 @@
 #include "Variable.h"
-template <typename T>
-Variable<T>::Variable(string name, T value, AllTypes type) {
+Variable::Variable(string name, string valueAsStr, AllTypes type) {
 	this->varName = name;
-	this->ValueHeld = value;
+	this->ValueHeldAsStr = valueAsStr;
 	this->varType = type;
 }

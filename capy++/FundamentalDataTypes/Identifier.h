@@ -15,10 +15,10 @@ using namespace DataTypes;
 struct Identifier
 {
 private:
-	vector<string> expressionParts{};
+public:
 	vector<AllTypes> exprPartsDataTypes{};
 	AllTypes expressionType{};
-public:
+	vector<string> expressionParts{};
 	AllTypes userDefinedType{};
 	/// <summary>
 	/// the overall type of the data

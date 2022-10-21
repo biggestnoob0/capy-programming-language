@@ -20,6 +20,7 @@ public:
 	AllTypes expressionType{};
 	vector<string> expressionParts{};
 	AllTypes userDefinedType{};
+	int lineIdentified;
 	/// <summary>
 	/// the overall type of the data
 	/// </summary>

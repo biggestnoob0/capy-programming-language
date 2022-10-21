@@ -9,6 +9,7 @@ Identifier::Identifier(vector<string> expressionParts, vector<AllTypes> exprPart
 	this->exprPartsDataTypes = exprPartsDataTypes;
 	this->name = name;
 	this->userDefinedType = userDefinedType;
+	this->lineIdentified = lineIdentified;
 
 	// evalutes the expression type depending on itiitaliser specified
 	if (expressionParts.size() > 1) {

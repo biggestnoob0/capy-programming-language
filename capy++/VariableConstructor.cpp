@@ -84,3 +84,56 @@ Variable VariableConstructor::ConstructBool(Identifier& identifier)
 {
 	return Variable{ identifier.name, identifier.expressionParts.at(0), identifier.type };
 }
+
+Variable VariableConstructor::ConstructIntType(Identifier& identifier)
+{
+	long long numericalValue{};
+	long long maxValue{};
+	long long previousValue{};
+	string maxValAsStr{};
+	switch (identifier.type) {
+	case Byte:
+		maxValue = 127;
+		break;
+	case Int16:
+		maxValue = 32767;
+		break;
+	case Integer:
+		maxValue = 2147483647;
+		break;
+	case Int64:
+		maxValue = 9223372036854775807;
+		break;
+	}
+	maxValAsStr = std::to_string(maxValue);
+	for (int i{ (int)identifier.expressionParts.size() - 1 }; i >= 0; i--) {
+		if (identifier.exprPartsDataTypes.at(i) == Integer) {
+			string token{ identifier.expressionParts.at(i) };
+			if (token.size() >= maxValAsStr.size()) {
+				if (token.size() == maxValAsStr.size()) {
+					for (size_t i = 0; i < token.size(); i++)
+					{
+						if (token.at(i) < maxValAsStr.at(i)) 
+						{ 
+							break; 
+						}
+						else if (token.at(i) == maxValAsStr.at(i)) {
+							continue;
+						}
+						else {
+							Error error{ "Expression size is larger than max value of type", identifier.lineIdentified, "VALUE-OUT-OF-RANGE-ERROR" };
+						}
+					}
+				}
+				else {
+					Error error{ "Expression size is larger than max value of type", identifier.lineIdentified, "VALUE-OUT-OF-RANGE-ERROR" };
+				}
+			}
+		}
+		else {
+			switch (identifier.exprPartsDataTypes.at(i)) {
+
+			}
+		}
+	}
+}

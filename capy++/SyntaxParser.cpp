@@ -28,7 +28,7 @@ vector<Identifier *> SyntaxParser::ParseAllIdentifiers(const vector<IdentifierAt
 				{
 					firstChar = token.at(1);
 				}
-				if (std::isdigit(firstChar) || firstChar == '-')
+				if (std::isdigit(firstChar) || firstChar == '-' && token.size() > 1)
 				{
 					int dots = std::count(token.begin(), token.end(), '.');
 					dataType = NumberSyntaxChecker(token, dots, lineIndex);
